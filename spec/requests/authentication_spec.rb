@@ -11,7 +11,7 @@ feature 'LinkedIn OAuth Authentication', :js do
   end
 
   scenario 'Handling a LinkedIn callback' do
-    visit o_auth1_callback_path(:provider => :linked_in, :oauth_token => 'test-auth-code')
+    visit oauth_callback_path(:provider => :linked_in, :oauth_token => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'
