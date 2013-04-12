@@ -11,7 +11,6 @@ require 'bundler/setup'
 
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../dummy/config/environment.rb',  __FILE__)
-require 'capybara/rspec'
 require 'rspec/rails'
 require 'factory_girl_rails'
 
@@ -24,8 +23,4 @@ RSpec.configure do |config|
   config.mock_with :mocha
   config.use_transactional_fixtures = true
   config.include Factory::Syntax::Methods
-
-  config.before(:each, :type => :request) do
-    Dir[File.join(ENGINE_RAILS_ROOT, 'spec/requests/step_helpers/**/*.rb')].each { |f| require f }
-  end
 end
