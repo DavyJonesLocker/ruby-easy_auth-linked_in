@@ -30,5 +30,4 @@ module EasyAuth::Models::Identities::Oauth2::LinkedIn
   def retrieve_uid(user_info)
     user_info['emailAddress']
   end
-
 end
