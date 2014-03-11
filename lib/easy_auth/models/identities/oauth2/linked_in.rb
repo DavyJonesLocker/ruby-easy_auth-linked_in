@@ -1,33 +1,43 @@
+require 'linkedin-oauth2'
+
 module EasyAuth::Models::Identities::Oauth2::LinkedIn
-  def account_attributes_map
-    {:email => 'emailAddress', :first_name => 'firstName', :last_name => 'lastName'}
+  extend ActiveSupport::Concern
+
+  def client
+    @client ||= LinkedIn::Client.new(EasyAuth.oauth2[:linked_in][:client_id], EasyAuth.oauth2[:linked_in][:secret], self.token)
   end
 
-  def authorize_url
-    "https://www.linkedin.com/uas/oauth2/authorization?state=#{Time.now.to_i}"
-  end
+  module ClassMethods
+    def account_attributes_map
+      {:email => 'emailAddress', :first_name => 'firstName', :last_name => 'lastName'}
+    end
 
-  def oauth2_scope
-    'r_basicprofile r_emailaddress'
-  end
+    def authorize_url
+      "https://www.linkedin.com/uas/oauth2/authorization?state=#{Time.now.to_i}"
+    end
 
-  def account_attributes_url
-    '/v1/people/~:(firstName,lastName,emailAddress)?format=json'
-  end
+    def oauth2_scope
+      'r_basicprofile r_emailaddress'
+    end
 
-  def token_url
-    'https://www.linkedin.com/uas/oauth2/accessToken'
-  end
+    def account_attributes_url
+      '/v1/people/~:(firstName,lastName,emailAddress)?format=json'
+    end
 
-  def token_params
-    { :mode => :query, :param_name => :oauth2_access_token }
-  end
+    def token_url
+      'https://www.linkedin.com/uas/oauth2/accessToken'
+    end
 
-  def site_url
-    'https://api.linkedin.com/v1'
-  end
+    def token_params
+      { :mode => :query, :param_name => :oauth2_access_token }
+    end
 
-  def retrieve_uid(account_attributes)
-    account_attributes['emailAddress']
+    def site_url
+      'https://api.linkedin.com/v1'
+    end
+
+    def retrieve_uid(account_attributes)
+      account_attributes['emailAddress']
+    end
   end
 end
