@@ -11,7 +11,7 @@ module EasyAuth::Models::Identities::Oauth2::LinkedIn
     'r_basicprofile r_emailaddress'
   end
 
-  def user_info_url
+  def account_attributes_url
     '/v1/people/~:(firstName,lastName,emailAddress)?format=json'
   end
 
@@ -27,7 +27,7 @@ module EasyAuth::Models::Identities::Oauth2::LinkedIn
     'https://api.linkedin.com/v1'
   end
 
-  def retrieve_uid(user_info)
-    user_info['emailAddress']
+  def retrieve_uid(account_attributes)
+    account_attributes['emailAddress']
   end
 end

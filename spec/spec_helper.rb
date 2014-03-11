@@ -1,14 +1,5 @@
-require 'rubygems'
-begin
-  require 'debugger'
-rescue LoadError
-end
-begin
-  require 'ruby-debug'
-rescue LoadError
-end
 require 'bundler/setup'
-
+require 'byebug'
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'capybara/rspec'

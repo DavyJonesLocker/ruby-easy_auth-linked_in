@@ -31,4 +31,5 @@ Dummy::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'example.com' }
   config.eager_load = false
+  config.i18n.enforce_available_locales = false
 end
